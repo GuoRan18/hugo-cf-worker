@@ -16,14 +16,14 @@ type ArticleRow = {
 const app = new Hono<{ Bindings: Bindings }>();
 
 app.get(
-    "/post/:post_id/like",
+    "/post/:key/like",
     cors({
         origin: (origin, c) => {
             return c.env.DOMAIN;
         },
     }),
     async (c) => {
-        const post_id = c.req.param("post_id");
+        const post_id = c.req.param("key");
         try {
             let article = await c.env.DB.prepare(
                 "SELECT * FROM articles WHERE post_id = ?"
@@ -43,14 +43,14 @@ app.get(
 );
 
 app.post(
-    "/post/:post_id/like",
+    "/post/:key/like",
     cors({
         origin: (origin, c) => {
             return c.env.DOMAIN;
         },
     }),
     async (c) => {
-        const post_id = c.req.param("post_id");
+        const post_id = c.req.param("key");
         try {
             let likes: number = 0;
             let article = await c.env.DB.prepare(
@@ -109,14 +109,14 @@ app.get(
 );
 
 app.post(
-    "/post/:post_id/view",
+    "/post/:key/view",
     cors({
         origin: (origin, c) => {
             return c.env.DOMAIN;
         },
     }),
     async (c) => {
-        const post_id = c.req.param("post_id");
+        const post_id = c.req.param("key");
         try {
             let views: number = 0;
             let article: any = await c.env.DB.prepare(
