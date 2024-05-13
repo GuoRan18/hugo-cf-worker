@@ -16,19 +16,19 @@ type ArticleRow = {
 const app = new Hono<{ Bindings: Bindings }>();
 
 app.get(
-    "/post/:key/like",
+    "/post/:post_id/like",
     cors({
         origin: (origin, c) => {
             return c.env.DOMAIN;
         },
     }),
     async (c) => {
-        const key = c.req.param("key");
+        const post_id = c.req.param("post_id");
         try {
             let article = await c.env.DB.prepare(
                 "SELECT * FROM articles WHERE post_id = ?"
             )
-                .bind(key)
+                .bind(post_id)
                 .first<ArticleRow>();
             if (!article) {
                 return c.json({ likes: 0 });
@@ -43,33 +43,33 @@ app.get(
 );
 
 app.post(
-    "/post/:key/like",
+    "/post/:post_id/like",
     cors({
         origin: (origin, c) => {
             return c.env.DOMAIN;
         },
     }),
     async (c) => {
-        const key = c.req.param("key");
+        const post_id = c.req.param("post_id");
         try {
             let likes: number = 0;
             let article = await c.env.DB.prepare(
                 "SELECT * FROM articles WHERE post_id = ?"
             )
-                .bind(key)
+                .bind(post_id)
                 .first<ArticleRow>();
             if (!article) {
                 await c.env.DB.prepare(
                     "INSERT INTO articles (post_id, likes) VALUES (?, ?)"
                 )
-                    .bind(key, 1)
+                    .bind(post_id, 1)
                     .run();
                 likes = 1;
             } else {
                 await c.env.DB.prepare(
                     "UPDATE articles SET likes = ? WHERE post_id = ?"
                 )
-                    .bind(article.likes + 1, key)
+                    .bind(article.likes + 1, post_id)
                     .run();
                 likes = article.likes + 1;
             }
@@ -109,33 +109,33 @@ app.get(
 );
 
 app.post(
-    "/post/:id/view",
+    "/post/:post_id/view",
     cors({
         origin: (origin, c) => {
             return c.env.DOMAIN;
         },
     }),
     async (c) => {
-        const key = c.req.param("id");
+        const post_id = c.req.param("post_id");
         try {
             let views: number = 0;
             let article: any = await c.env.DB.prepare(
                 "SELECT * FROM articles WHERE post_id = ?"
             )
-                .bind(key)
+                .bind(post_id)
                 .first<ArticleRow>();
             if (!article) {
                 await c.env.DB.prepare(
                     "INSERT INTO articles (post_id, views) VALUES (?, ?)"
                 )
-                    .bind(key, 1)
+                    .bind(post_id, 1)
                     .run();
                 views = 1;
             } else {
                 await c.env.DB.prepare(
                     "UPDATE articles SET views = ? WHERE post_id = ?"
                 )
-                    .bind(article.views + 1, key)
+                    .bind(article.views + 1, post_id)
                     .run();
                 views = article.views + 1;
             }
