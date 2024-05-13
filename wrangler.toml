@@ -1,4 +1,4 @@
-name = "hugo-cf-work"
+name = "hugo-cf-work-2"
 compatibility_date = "2023-12-01"
 main = "src/index.ts"
 minify = true
@@ -14,10 +14,10 @@ DOMAIN = "https://bigfa.github.io"
 # binding = "MY_BUCKET"
 # bucket_name = "my-bucket"
 
-[[d1_databases]]
-binding = "DB"
-database_name = "hugo-cf-d1"
-database_id = "81e23e8a-3b26-4025-acf8-1123bfd5af74"
+# [[d1_databases]]
+# binding = "DB"
+# database_name = "my-database"
+# database_id = ""
 
 # [ai]
 # binding = "AI"
