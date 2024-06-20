@@ -5,6 +5,7 @@ minify = true
 
 [vars]
 DOMAIN = "https://bigfa.github.io"
+PAGESIZE = 40
 
 # [[kv_namespaces]]
 # binding = "MY_KV_NAMESPACE"

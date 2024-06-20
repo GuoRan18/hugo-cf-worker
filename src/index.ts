@@ -1,5 +1,6 @@
 import { Hono } from "hono";
 import { cors } from "hono/cors";
+import comment from "./routers/commentRouters";
 
 type Bindings = {
     // Add your bindings here
@@ -14,6 +15,8 @@ type ArticleRow = {
 };
 
 const app = new Hono<{ Bindings: Bindings }>();
+
+app.route("/comment", comment);
 
 app.get(
     "/post/:key/like",
