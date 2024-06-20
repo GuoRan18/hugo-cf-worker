@@ -13,3 +13,7 @@ export function encodeForHTML(str: string) {
 export function getAvatarFromEmail(email: string) {
     return `https://www.gravatar.com/avatar/${Md5.hashStr(email)}?d=identicon`;
 }
+
+export function checkStringLength(str: string, min: number, max: number) {
+    return str.length >= min && str.length <= max;
+}
