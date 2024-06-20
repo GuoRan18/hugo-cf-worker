@@ -66,7 +66,7 @@ npm run dev
 如果生产环境数据库没有创建表则需要执行命令初始化。
 
 ```
-npx wrangler d1 execute hugo-cf-d1 --file=./schema.sql
+npx wrangler d1 execute hugo-cf-d1 --remote --file=./schema.sql
 ```
 
 然后部署即可。
