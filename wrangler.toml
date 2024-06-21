@@ -1,4 +1,4 @@
-name = "hugo-cf-work-2"
+name = "farallon"
 compatibility_date = "2023-12-01"
 main = "src/index.ts"
 minify = true
@@ -7,18 +7,18 @@ minify = true
 DOMAIN = "https://bigfa.github.io"
 PAGESIZE = 10
 
-# [[kv_namespaces]]
-# binding = "MY_KV_NAMESPACE"
-# id = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+[[kv_namespaces]]
+binding = "FARALLON"
+id = "2226d0bec61343958816707ecaae68e0"
 
-# [[r2_buckets]]
-# binding = "MY_BUCKET"
-# bucket_name = "my-bucket"
+[[r2_buckets]]
+binding = "MY_BUCKET"
+bucket_name = "fatesinger"
 
 [[d1_databases]]
 binding = "DB"
-database_name = "hugo-cf-d1"
-database_id = "81e23e8a-3b26-4025-acf8-1123bfd5af74"
+database_name = "fatesinger"
+database_id = "47810e57-5d01-44e0-93a7-2950df88e9b2"
 
 # [ai]
 # binding = "AI"

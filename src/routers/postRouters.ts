@@ -14,7 +14,7 @@ const post = new Hono<{ Bindings: Bindings }>();
 post.use(
     cors({
         origin: (origin, c) => {
-            return c.env.DOMAIN;
+            return "*";
         },
     })
 );
