@@ -48,9 +48,13 @@ export const honoNewComment = async (c: Context, params: any) => {
         return c.json({ err: "Duplicate comment" }, 400);
     }
 
+    // get comment auhor ip
+
+    const comment_author_ip = c.req.raw.headers.get("CF-Connecting-IP");
+
     try {
         await c.env.DB.prepare(
-            "INSERT INTO comments (comment_id, post_id, comment_author_name, comment_author_email, comment_author_url, comment_date, comment_content, comment_parent) VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
+            "INSERT INTO comments (comment_id, post_id, comment_author_name, comment_author_email, comment_author_url, comment_date, comment_content, comment_parent, comment_author_ip) VALUES (?, ?, ?, ?, ?, ?, ?, ? , ?)"
         )
             .bind(
                 comment_id,
@@ -60,7 +64,8 @@ export const honoNewComment = async (c: Context, params: any) => {
                 comment_author_url,
                 comment_date,
                 comment_content,
-                comment_parent
+                comment_parent,
+                comment_author_ip
             )
             .run();
         // @ts-ignore
@@ -71,7 +76,7 @@ export const honoNewComment = async (c: Context, params: any) => {
             .first();
         comment.avatar = getAvatarFromEmail(comment.comment_author_email);
         delete comment.comment_author_email;
-
+        delete comment.comment_author_ip;
         setCookie(c, "comment_author_name", comment_author_name, {
             maxAge: 60 * 60 * 24 * 7,
             httpOnly: true,
@@ -110,7 +115,7 @@ const getChildComments = async (
                 childComment.comment_author_email
             );
             delete childComment.comment_author_email;
-            console.log(childComment);
+            delete childComment.comment_author_ip;
             result.push({
                 ...childComment,
             });
@@ -143,12 +148,10 @@ export const honoGetComments = async (
         .bind(post_id, c.env.PAGESIZE, (total_paged - paged) * c.env.PAGESIZE)
         .all<Comment>();
 
-    console.log(c.env.PAGESIZE);
-
     for (const object of objects.results) {
         object.children = await getChildComments(c, object.comment_id, post_id);
         object.avatar = getAvatarFromEmail(object.comment_author_email);
-        // drop email prop
+        delete object.comment_author_ip;
         delete object.comment_author_email;
     }
 

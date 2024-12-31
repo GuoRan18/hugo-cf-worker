@@ -8,5 +8,5 @@ export interface Comment {
     comment_author_ip: string;
     comment_content: string;
     comment_parent: string;
-    children: any;
+    children?: Comment[];
 }
