@@ -4,7 +4,7 @@ main = "src/index.ts"
 minify = true
 
 [vars]
-DOMAIN = "https://bigfa.github.io"
+DOMAIN = "https://4op.top"
 PAGESIZE = 10
 
 [[kv_namespaces]]
@@ -17,8 +17,8 @@ bucket_name = "fatesinger"
 
 [[d1_databases]]
 binding = "DB"
-database_name = "fatesinger"
-database_id = "47810e57-5d01-44e0-93a7-2950df88e9b2"
+database_name = "chensu"
+database_id = "afccf07e-8057-40f7-ad99-41d44112dd23"
 
 # [ai]
 # binding = "AI"
