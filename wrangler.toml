@@ -17,7 +17,7 @@ bucket_name = "fatesinger"
 
 [[d1_databases]]
 binding = "DB"
-database_name = "chensu"
+database_name = "hugo-cf-d1"
 database_id = "afccf07e-8057-40f7-ad99-41d44112dd23"
 
 # [ai]
